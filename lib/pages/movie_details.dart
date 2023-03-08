@@ -17,10 +17,12 @@ class _MovieDetailsState extends State<MovieDetails> {
   List<String> movieGenres = [];
 
   _getGenres() {
-    for (var tvGenre in widget.movie.genreIds) {
-      for (var element in widget.genres) {
-        if (tvGenre == element.id) {
-          movieGenres.add(element.name);
+    if (movieGenres.isEmpty) {
+      for (var tvGenre in widget.movie.genreIds) {
+        for (var element in widget.genres) {
+          if (tvGenre == element.id) {
+            movieGenres.add(element.name);
+          }
         }
       }
     }
@@ -78,10 +80,15 @@ class _MovieDetailsState extends State<MovieDetails> {
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
-                              const Icon(
-                                Icons.stars,
-                                color: Colors.blue,
-                                size: 40,
+                              const Column(
+                                children: [
+                                  Text("TOP RATED"),
+                                  Icon(
+                                    Icons.military_tech_rounded,
+                                    color: Colors.red,
+                                    size: 60,
+                                  ),
+                                ],
                               ),
                               Row(
                                 mainAxisAlignment: MainAxisAlignment.end,

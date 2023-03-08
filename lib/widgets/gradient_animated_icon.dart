@@ -97,6 +97,7 @@ class _GradientAnimatedIconState extends State<GradientAnimatedIcon>
           child: Icon(
             widget.icon,
             size: 75,
+            shadows: const [Shadow(color: Colors.black, blurRadius: 25.0)],
           ),
         );
       },
