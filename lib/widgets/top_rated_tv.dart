@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:movie_series_application/model/tv_class.dart';
+import 'package:movie_series_application/models/tv_class.dart';
 
 class TopRatedTV extends StatefulWidget {
   const TopRatedTV({super.key, required this.tv});
