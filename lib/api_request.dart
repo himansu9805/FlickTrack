@@ -1,7 +1,8 @@
 import 'package:http/http.dart' as http;
+import 'package:movie_series_application/auth/secrets.dart';
 
 class API {
-  String apiKey = "7f80b744dcb0ba4407902c334b482282";
+  String apiKey = tmdbApiKey;
   String rootUrl = "https://api.themoviedb.org/3";
 
   Future getTopRated(String type, int page) async {
