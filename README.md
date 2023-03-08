@@ -9,7 +9,14 @@ To get started with FlickTrack, you can follow these steps:
 1. Clone the repository to your local machine using git clone https://github.com/himansu9805/FlickTrack.git
 2. Open the project in your preferred IDE or editor (we recommend using Visual Studio Code with the Flutter extension installed)
 3. Run flutter pub get to install the app's dependencies
-4. Run flutter run to launch the app on a connected device or emulator
+4. Create a folder named auth inside the lib directory.
+5. Inside the auth folder, create a file named secrets.dart.
+6. Inside secrets.dart, create a variable named tmdbApiKey and assign it the API key provided by TMDB.
+```dart
+var tmdbApiKey = 'INSERT_YOUR_API_KEY_HERE';
+```
+7. Save the secrets.dart file.
+8. Run the app on your preferred device or emulator by running flutter run in the terminal.
 
 ### Features
 
