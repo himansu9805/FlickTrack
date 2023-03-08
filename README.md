@@ -32,7 +32,7 @@ If you would like to contribute to FlickTrack, feel free to submit a pull reques
 
 ### License
 
-FlickTrack is released under the MIT License. See [LICENSE](/himansu9805/FlickTrack/LICENSE) for more details.
+FlickTrack is released under the MIT License. See [LICENSE](/LICENSE) for more details.
 
 ### Contact
 
