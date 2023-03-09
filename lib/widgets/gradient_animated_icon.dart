@@ -1,8 +1,14 @@
 import 'package:flutter/material.dart';
 
 class GradientAnimatedIcon extends StatefulWidget {
-  const GradientAnimatedIcon({super.key, required this.icon});
+  const GradientAnimatedIcon(
+      {super.key,
+      required this.icon,
+      required this.colors,
+      required this.size});
   final IconData icon;
+  final List<Color> colors;
+  final double size;
 
   @override
   State<GradientAnimatedIcon> createState() => _GradientAnimatedIconState();
@@ -86,17 +92,13 @@ class _GradientAnimatedIconState extends State<GradientAnimatedIcon>
         return ShaderMask(
           blendMode: BlendMode.srcIn,
           shaderCallback: (Rect bounds) => LinearGradient(
-                  colors: const [
-                Color(0xFF4FFFB0),
-                Color(0XFF32de84),
-                Color(0xFF1B4D3E)
-              ],
+                  colors: widget.colors,
                   begin: _topAlignmentAnimation.value,
                   end: _bottomAlignmentAnimation.value)
               .createShader(bounds),
           child: Icon(
             widget.icon,
-            size: 75,
+            size: widget.size,
             shadows: const [Shadow(color: Colors.black, blurRadius: 25.0)],
           ),
         );

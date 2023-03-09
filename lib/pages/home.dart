@@ -235,7 +235,7 @@ class MoviesSeries extends StatelessWidget {
                 ),
               ),
             ),
-            TopRatedTV(tv: topTV),
+            TopRatedTV(tv: topTV, genre: genre),
           ],
         ),
       ),

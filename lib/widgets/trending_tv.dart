@@ -51,6 +51,12 @@ class TrendingTVState extends State<TrendingTV> {
           padding: const EdgeInsets.all(10),
           child: const GradientAnimatedIcon(
             icon: Icons.trending_up_rounded,
+            colors: [
+              Color.fromARGB(255, 255, 255, 255),
+              Color(0XFF32de84),
+              Color(0xFF1B4D3E)
+            ],
+            size: 75,
           ),
         ),
         AspectRatio(
@@ -89,8 +95,7 @@ class TrendingTVState extends State<TrendingTV> {
                       ),
                     ],
                   ),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
+                  Wrap(
                     children: [
                       for (String element in widget.genres)
                         Padding(

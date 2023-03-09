@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:movie_series_application/models/genre_class.dart';
 import 'package:movie_series_application/models/movie_class.dart';
+import 'package:movie_series_application/widgets/gradient_animated_icon.dart';
 
 class MovieDetails extends StatefulWidget {
   const MovieDetails({super.key, required this.movie, required this.genres});
@@ -83,9 +84,13 @@ class _MovieDetailsState extends State<MovieDetails> {
                               const Column(
                                 children: [
                                   Text("TOP RATED"),
-                                  Icon(
-                                    Icons.military_tech_rounded,
-                                    color: Colors.red,
+                                  GradientAnimatedIcon(
+                                    icon: Icons.military_tech_rounded,
+                                    colors: [
+                                      Color.fromARGB(255, 255, 120, 120),
+                                      Color.fromARGB(255, 222, 79, 50),
+                                      Color.fromARGB(255, 77, 33, 27)
+                                    ],
                                     size: 60,
                                   ),
                                 ],
@@ -153,10 +158,10 @@ class _MovieDetailsState extends State<MovieDetails> {
               ),
             ),
             Container(
+              width: width,
               margin:
                   const EdgeInsets.symmetric(horizontal: 15.0, vertical: 5.0),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.start,
+              child: Wrap(
                 children: [
                   for (String element in movieGenres)
                     Padding(

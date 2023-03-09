@@ -6,6 +6,7 @@ class TV {
   final String overview;
   final String posterPath;
   final List genreIds;
+  final String releaseDate;
 
   const TV(
       {required this.id,
@@ -14,7 +15,8 @@ class TV {
       required this.voteAverage,
       required this.overview,
       required this.posterPath,
-      required this.genreIds});
+      required this.genreIds,
+      required this.releaseDate});
 
   factory TV.fromJson(Map<String, dynamic> json) {
     return TV(
@@ -24,6 +26,7 @@ class TV {
         voteAverage: json['vote_average'],
         overview: json['overview'],
         posterPath: json['poster_path'],
-        genreIds: json['genre_ids']);
+        genreIds: json['genre_ids'],
+        releaseDate: json['first_air_date']);
   }
 }
