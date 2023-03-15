@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:movie_series_application/enums/loader.enum.dart';
 import 'package:movie_series_application/models/genre_class.dart';
 import 'package:movie_series_application/models/tv_class.dart';
 import 'package:movie_series_application/pages/tv_details.dart';
+import 'package:movie_series_application/widgets/skeleton_loader.dart';
 
 class TopRatedTV extends StatefulWidget {
   const TopRatedTV({super.key, required this.tv, required this.genre});
@@ -27,7 +29,8 @@ class TopRatedTVState extends State<TopRatedTV> {
               Navigator.of(context).push(
                 MaterialPageRoute(
                   builder: (context) => TVDetails(
-                    movie: widget.tv[index],
+                    tv: widget.tv[index],
+                    isTopRated: true,
                     genres: widget.genre,
                   ),
                 ),
@@ -41,11 +44,11 @@ class TopRatedTVState extends State<TopRatedTV> {
                     ImageChunkEvent? loadingProgress) {
                   if (loadingProgress == null) return child;
                   return Center(
-                    child: CircularProgressIndicator(
-                      value: loadingProgress.expectedTotalBytes != null
-                          ? loadingProgress.cumulativeBytesLoaded /
-                              loadingProgress.expectedTotalBytes!
-                          : null,
+                    child: Container(
+                      margin: const EdgeInsets.symmetric(horizontal: 12.5),
+                      height: 200.0,
+                      width: 160.0,
+                      child: const SkeletonLoader(type: Loader.image),
                     ),
                   );
                 },

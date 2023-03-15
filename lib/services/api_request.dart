@@ -20,4 +20,9 @@ class API {
     var url = '$rootUrl/genre/$type/list?api_key=$apiKey&language=en-US';
     return http.get(Uri.parse(url));
   }
+
+  Future getDetails(String type, int id) async {
+    var url = '$rootUrl/$type/$id?api_key=$apiKey&language=en-US';
+    return http.get(Uri.parse(url));
+  }
 }

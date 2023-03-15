@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:movie_series_application/enums/loader.enum.dart';
 import 'package:movie_series_application/models/genre_class.dart';
 import 'package:movie_series_application/models/movie_class.dart';
 import 'package:movie_series_application/pages/movie_details.dart';
+import 'package:movie_series_application/widgets/skeleton_loader.dart';
 
 class TopRatedMovies extends StatefulWidget {
   const TopRatedMovies({super.key, required this.movies, required this.genre});
@@ -29,6 +31,7 @@ class TopRatedMoviesState extends State<TopRatedMovies> {
                   builder: (context) => MovieDetails(
                     movie: widget.movies[index],
                     genres: widget.genre,
+                    isTopRated: true,
                   ),
                 ),
               );
@@ -41,11 +44,11 @@ class TopRatedMoviesState extends State<TopRatedMovies> {
                     ImageChunkEvent? loadingProgress) {
                   if (loadingProgress == null) return child;
                   return Center(
-                    child: CircularProgressIndicator(
-                      value: loadingProgress.expectedTotalBytes != null
-                          ? loadingProgress.cumulativeBytesLoaded /
-                              loadingProgress.expectedTotalBytes!
-                          : null,
+                    child: Container(
+                      margin: const EdgeInsets.symmetric(horizontal: 12.5),
+                      height: 200.0,
+                      width: 160.0,
+                      child: const SkeletonLoader(type: Loader.image),
                     ),
                   );
                 },

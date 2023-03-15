@@ -3,11 +3,14 @@ import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:movie_series_application/enums/loader.enum.dart';
 import 'package:movie_series_application/models/genre_class.dart';
 import 'package:movie_series_application/models/movie_class.dart';
 import 'package:movie_series_application/models/tv_class.dart';
+import 'package:movie_series_application/widgets/skeleton_loader.dart';
 import 'package:movie_series_application/widgets/top_rated_movies.dart';
 import 'package:movie_series_application/widgets/top_rated_tv.dart';
+
 import 'package:movie_series_application/widgets/trending_tv.dart';
 import 'package:movie_series_application/services/api_request.dart';
 
@@ -200,12 +203,54 @@ class MoviesSeries extends StatelessWidget {
         child: Column(
           children: [
             trendingTV.isEmpty
-                ? const AspectRatio(
-                    aspectRatio: 0.9,
-                    child: Center(
-                      child: CircularProgressIndicator(),
+                ? Stack(children: [
+                    const AspectRatio(
+                      aspectRatio: 0.9,
+                      child: SkeletonLoader(type: Loader.image),
                     ),
-                  )
+                    AspectRatio(
+                      aspectRatio: 0.9,
+                      child: Container(
+                        alignment: Alignment.bottomCenter,
+                        child: const Padding(
+                          padding: EdgeInsets.all(10.0),
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.end,
+                            children: [
+                              SkeletonLoader(type: Loader.text),
+                              Row(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  Icon(
+                                    Icons.star_rounded,
+                                    color: Colors.amber,
+                                  ),
+                                  SizedBox(
+                                    width: 5,
+                                  ),
+                                  SkeletonLoader(type: Loader.number),
+                                ],
+                              ),
+                              Wrap(
+                                children: [
+                                  Padding(
+                                    padding: EdgeInsets.symmetric(
+                                        vertical: 8.0, horizontal: 5.0),
+                                    child: SkeletonLoader(type: Loader.chip),
+                                  ),
+                                  Padding(
+                                    padding: EdgeInsets.symmetric(
+                                        vertical: 8.0, horizontal: 5.0),
+                                    child: SkeletonLoader(type: Loader.chip),
+                                  ),
+                                ],
+                              )
+                            ],
+                          ),
+                        ),
+                      ),
+                    ),
+                  ])
                 : TrendingTV(
                     tv: trendingTV,
                     trendingIndex: trendingIndex,
@@ -222,7 +267,25 @@ class MoviesSeries extends StatelessWidget {
                 ),
               ),
             ),
-            TopRatedMovies(movies: topMovies, genre: genre),
+            topMovies.isEmpty
+                ? Row(
+                    children: [
+                      Container(
+                        margin: const EdgeInsets.symmetric(
+                            vertical: 20.0, horizontal: 12.5),
+                        height: 200.0,
+                        width: 135,
+                        child: const SkeletonLoader(type: Loader.image),
+                      ),
+                      Container(
+                        margin: const EdgeInsets.symmetric(horizontal: 12.5),
+                        height: 200.0,
+                        width: 135,
+                        child: const SkeletonLoader(type: Loader.image),
+                      ),
+                    ],
+                  )
+                : TopRatedMovies(movies: topMovies, genre: genre),
             Container(
               margin: const EdgeInsets.symmetric(horizontal: 15.0),
               width: width,
@@ -235,7 +298,25 @@ class MoviesSeries extends StatelessWidget {
                 ),
               ),
             ),
-            TopRatedTV(tv: topTV, genre: genre),
+            topTV.isEmpty
+                ? Row(
+                    children: [
+                      Container(
+                        margin: const EdgeInsets.symmetric(
+                            vertical: 20.0, horizontal: 12.5),
+                        height: 200.0,
+                        width: 135,
+                        child: const SkeletonLoader(type: Loader.image),
+                      ),
+                      Container(
+                        margin: const EdgeInsets.symmetric(horizontal: 12.5),
+                        height: 200.0,
+                        width: 135,
+                        child: const SkeletonLoader(type: Loader.image),
+                      ),
+                    ],
+                  )
+                : TopRatedTV(tv: topTV, genre: genre),
           ],
         ),
       ),
