@@ -140,12 +140,13 @@ class MoviesSeries extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     double width = MediaQuery.of(context).size.width;
+    double height = MediaQuery.of(context).size.height;
     return Scaffold(
       key: scaffoldKey,
       appBar: AppBar(
-        toolbarHeight: 100,
+        toolbarHeight: height / 8,
         title: Container(
-          height: 60,
+          height: height / 12,
           padding: const EdgeInsets.symmetric(horizontal: 8.0),
           alignment: Alignment.center,
           transformAlignment: Alignment.center,

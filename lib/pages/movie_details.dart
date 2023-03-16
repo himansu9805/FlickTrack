@@ -71,142 +71,91 @@ class _MovieDetailsState extends State<MovieDetails> {
   Widget build(BuildContext context) {
     _getGenres();
     double width = MediaQuery.of(context).size.width;
+    double height = MediaQuery.of(context).size.height;
     return Scaffold(
       appBar: AppBar(
-        toolbarHeight: 100,
+        toolbarHeight: height / 9,
         title: Text(
             "${widget.movie.title} (${widget.movie.releaseDate.substring(0, 4)})"),
-        actions: [
-          widget.isTopRated && offset > 0.55
-              ? Opacity(
-                  opacity: offset == 1 ? 1 : offset - 0.55,
-                  child: const GradientAnimatedIcon(
-                    icon: Icons.military_tech_rounded,
-                    colors: [
-                      Color.fromARGB(255, 255, 120, 120),
-                      Color.fromARGB(255, 222, 79, 50),
-                      Color.fromARGB(255, 77, 33, 27)
-                    ],
-                    size: 50,
-                  ),
-                )
-              : const SizedBox()
-        ],
       ),
       body: Stack(
         children: [
-          Stack(children: [
-            AspectRatio(
-              aspectRatio: 0.9,
-              child: Container(
-                foregroundDecoration: const BoxDecoration(
-                  gradient: LinearGradient(
-                    colors: [
-                      Color.fromARGB(0, 14, 14, 14),
-                      Color(0xFF201c1c),
-                    ],
-                    begin: Alignment.topCenter,
-                    end: Alignment.bottomCenter,
-                    stops: [0.5, 1],
-                  ),
+          AspectRatio(
+            aspectRatio: 0.9,
+            child: Container(
+              foregroundDecoration: const BoxDecoration(
+                gradient: LinearGradient(
+                  colors: [
+                    Color.fromARGB(255, 0, 0, 0),
+                    Color.fromARGB(0, 14, 14, 14),
+                    Color(0xFF201c1c),
+                  ],
+                  begin: Alignment.topCenter,
+                  end: Alignment.bottomCenter,
+                  stops: [0, 0.5, 1],
                 ),
-                decoration: BoxDecoration(
-                  image: DecorationImage(
-                    fit: BoxFit.fitWidth,
-                    alignment: FractionalOffset.topCenter,
-                    image: NetworkImage(
-                      'https://image.tmdb.org/t/p/w500${widget.movie.posterPath}',
-                    ),
-                    opacity: 1.35 - offset,
+              ),
+              decoration: BoxDecoration(
+                image: DecorationImage(
+                  fit: BoxFit.fitWidth,
+                  alignment: FractionalOffset.topCenter,
+                  image: NetworkImage(
+                    'https://image.tmdb.org/t/p/w500${widget.movie.posterPath}',
                   ),
+                  opacity: 1.35 - offset,
                 ),
               ),
             ),
-            Container(
-              margin: const EdgeInsets.symmetric(horizontal: 10.0),
-              alignment: Alignment.topCenter,
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          ),
+          Container(
+            alignment: Alignment.bottomCenter,
+            child: Padding(
+              padding: const EdgeInsets.all(10.0),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.start,
                 children: [
-                  Padding(
-                    padding: const EdgeInsets.all(10.0),
-                    child: hasLoaded
-                        ? RawChip(
-                            avatar: const Icon(Icons.language_rounded),
-                            label: Text(
-                                movieDetails.originalLanguage.toUpperCase(),
-                                style: GoogleFonts.firaSans()),
-                            backgroundColor: Colors.transparent,
-                          )
-                        : const SkeletonLoader(type: Loader.chip),
-                  ),
-                  const Padding(
-                    padding: EdgeInsets.all(10.0),
-                    child: CircleAvatar(child: Icon(Icons.favorite_border_rounded)),
+                  Container(
+                    margin: const EdgeInsets.symmetric(
+                        vertical: 8, horizontal: 10.0),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        widget.isTopRated
+                            ? GradientAnimatedIcon(
+                                icon: Icons.military_tech_rounded,
+                                colors: const [
+                                  Color.fromARGB(255, 255, 120, 120),
+                                  Color.fromARGB(255, 222, 79, 50),
+                                  Color.fromARGB(255, 77, 33, 27)
+                                ],
+                                size: height / 12,
+                              )
+                            : const SizedBox(),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.end,
+                          children: [
+                            Icon(Icons.star_rounded,
+                                color: Colors.amber, size: height / 15),
+                            const SizedBox(
+                              width: 5,
+                            ),
+                            Text(
+                              widget.movie.voteAverage.toStringAsPrecision(2),
+                              style: GoogleFonts.firaSans(
+                                fontSize: height / 25,
+                                fontWeight: FontWeight.normal,
+                              ),
+                            ),
+                          ],
+                        ),
+                      ],
+                    ),
                   ),
                 ],
               ),
             ),
-            AspectRatio(
-              aspectRatio: 0.9 + 0.1 * offset,
-              child: Container(
-                alignment: Alignment.bottomCenter,
-                child: Padding(
-                  padding: const EdgeInsets.all(10.0),
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.end,
-                    children: [
-                      Container(
-                        margin: const EdgeInsets.symmetric(horizontal: 10.0),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            widget.isTopRated
-                                ? const Column(
-                                    children: [
-                                      Text("TOP RATED"),
-                                      GradientAnimatedIcon(
-                                        icon: Icons.military_tech_rounded,
-                                        colors: [
-                                          Color.fromARGB(255, 255, 120, 120),
-                                          Color.fromARGB(255, 222, 79, 50),
-                                          Color.fromARGB(255, 77, 33, 27)
-                                        ],
-                                        size: 60,
-                                      ),
-                                    ],
-                                  )
-                                : Container(),
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.end,
-                              children: [
-                                const Icon(
-                                  Icons.star_rounded,
-                                  color: Colors.amber,
-                                  size: 40,
-                                ),
-                                const SizedBox(
-                                  width: 5,
-                                ),
-                                Text(
-                                  widget.movie.voteAverage
-                                      .toStringAsPrecision(2),
-                                  style: GoogleFonts.firaSans(
-                                    fontSize: 40,
-                                    fontWeight: FontWeight.normal,
-                                  ),
-                                ),
-                              ],
-                            ),
-                          ],
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-              ),
-            ),
-          ]),
+          ),
           SizedBox.expand(
             child: DraggableScrollableSheet(
                 maxChildSize: 1,

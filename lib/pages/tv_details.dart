@@ -72,27 +72,12 @@ class _TVDetailsState extends State<TVDetails> {
   Widget build(BuildContext context) {
     _getGenres();
     double width = MediaQuery.of(context).size.width;
+    double height = MediaQuery.of(context).size.height;
     return Scaffold(
       appBar: AppBar(
-        toolbarHeight: 100,
+        toolbarHeight: height / 9,
         title: Text(
             "${widget.tv.name} (${widget.tv.releaseDate.substring(0, 4)})"),
-        actions: [
-          widget.isTopRated && offset > 0.55
-              ? Opacity(
-                  opacity: offset == 1 ? 1 : offset - 0.55,
-                  child: const GradientAnimatedIcon(
-                    icon: Icons.military_tech_rounded,
-                    colors: [
-                      Color.fromARGB(255, 255, 120, 120),
-                      Color.fromARGB(255, 222, 79, 50),
-                      Color.fromARGB(255, 77, 33, 27)
-                    ],
-                    size: 50,
-                  ),
-                )
-              : SizedBox()
-        ],
       ),
       body: Stack(children: [
         AspectRatio(
@@ -101,12 +86,13 @@ class _TVDetailsState extends State<TVDetails> {
             foregroundDecoration: const BoxDecoration(
               gradient: LinearGradient(
                 colors: [
+                  Colors.black,
                   Color.fromARGB(0, 14, 14, 14),
                   Color(0xFF201c1c),
                 ],
                 begin: Alignment.topCenter,
                 end: Alignment.bottomCenter,
-                stops: [0.5, 1],
+                stops: [0, 0.5, 1],
               ),
             ),
             decoration: BoxDecoration(
@@ -121,75 +107,51 @@ class _TVDetailsState extends State<TVDetails> {
           ),
         ),
         Container(
-          margin: const EdgeInsets.symmetric(horizontal: 10.0),
-          alignment: Alignment.topLeft,
+          alignment: Alignment.bottomCenter,
           child: Padding(
             padding: const EdgeInsets.all(10.0),
-            child: hasLoaded
-                ? RawChip(
-                    avatar: const Icon(Icons.language_rounded),
-                    label: Text(tvDetails.originalLanguage.toUpperCase(),
-                        style: GoogleFonts.firaSans()),
-                    backgroundColor: Colors.transparent,
-                  )
-                : const SkeletonLoader(type: Loader.chip),
-          ),
-        ),
-        AspectRatio(
-          aspectRatio: 0.9 + 0.1 * offset,
-          child: Container(
-            alignment: Alignment.bottomCenter,
-            child: Padding(
-              padding: const EdgeInsets.all(10.0),
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.end,
-                children: [
-                  Container(
-                    margin: const EdgeInsets.symmetric(horizontal: 10.0),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        widget.isTopRated
-                            ? const Column(
-                                children: [
-                                  Text("TOP RATED"),
-                                  GradientAnimatedIcon(
-                                    icon: Icons.military_tech_rounded,
-                                    colors: [
-                                      Color.fromARGB(255, 255, 120, 120),
-                                      Color.fromARGB(255, 222, 79, 50),
-                                      Color.fromARGB(255, 77, 33, 27)
-                                    ],
-                                    size: 60,
-                                  ),
-                                ],
-                              )
-                            : Container(),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.end,
-                          children: [
-                            const Icon(
-                              Icons.star_rounded,
-                              color: Colors.amber,
-                              size: 40,
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.start,
+              children: [
+                Container(
+                  margin:
+                      const EdgeInsets.symmetric(vertical: 8, horizontal: 10.0),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      widget.isTopRated
+                          ? GradientAnimatedIcon(
+                              icon: Icons.military_tech_rounded,
+                              colors: const [
+                                Color.fromARGB(255, 255, 120, 120),
+                                Color.fromARGB(255, 222, 79, 50),
+                                Color.fromARGB(255, 77, 33, 27)
+                              ],
+                              size: height / 12,
+                            )
+                          : const SizedBox(),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.end,
+                        children: [
+                          Icon(Icons.star_rounded,
+                              color: Colors.amber, size: height / 15),
+                          const SizedBox(
+                            width: 5,
+                          ),
+                          Text(
+                            widget.tv.voteAverage.toStringAsPrecision(2),
+                            style: GoogleFonts.firaSans(
+                              fontSize: height / 25,
+                              fontWeight: FontWeight.normal,
                             ),
-                            const SizedBox(
-                              width: 5,
-                            ),
-                            Text(
-                              widget.tv.voteAverage.toStringAsPrecision(2),
-                              style: GoogleFonts.firaSans(
-                                fontSize: 40,
-                                fontWeight: FontWeight.normal,
-                              ),
-                            ),
-                          ],
-                        ),
-                      ],
-                    ),
+                          ),
+                        ],
+                      ),
+                    ],
                   ),
-                ],
-              ),
+                ),
+              ],
             ),
           ),
         ),
